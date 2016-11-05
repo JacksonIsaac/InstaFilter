@@ -16,14 +16,14 @@ class ViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var imageToggle: UIButton!
     
-    @IBAction func onImageToggle(sender: UIButton) {
-        if imageToggle.selected {
+    @IBAction func onImageToggle(_ sender: UIButton) {
+        if imageToggle.isSelected {
             let image = UIImage(named: "sample")!
             imageView.image = image
-            imageToggle.selected = false
+            imageToggle.isSelected = false
         } else {
             imageView.image = filteredImage
-            imageToggle.selected = true
+            imageToggle.isSelected = true
         }
     }
     override func viewDidLoad() {

@@ -38,7 +38,7 @@ class ImageProcessor {
     }
     
     // Apply default filter to the image and return the RGBAImage.
-    func applyFilter(filter: String) -> RGBAImage {
+    func applyFilter(_ filter: String) -> RGBAImage {
         var newImage = self.imageRGBA!
         // Loop through each pixel of the image
         for y in 0..<newImage.height{
@@ -50,9 +50,9 @@ class ImageProcessor {
                 switch filter {
                 // Negative of the image
                 case "negative":
-                    pixel.red = UInt8(max(0, min(255,255 - pixel.red)))
-                    pixel.green = UInt8(max(0, min(255,255 - pixel.green)))
-                    pixel.blue = UInt8(max(0, min(255,255 - pixel.blue)))
+                    pixel.red = UInt8(max(0, min(255,UInt8(255-pixel.red))))
+                    pixel.green = UInt8(max(0, min(255,UInt8(255-pixel.green))))
+                    pixel.blue = UInt8(max(0, min(255,UInt8(255-pixel.blue))))
                     newImage.pixels[index] = pixel
                 // Add red color filter to the whole image.
                 case "redFilter":
@@ -84,7 +84,7 @@ class ImageProcessor {
     }
     
     // Apply filter with custom intensity to the image and return the RGBAImage.
-    func applyFilter(filter: String, val: Int) -> RGBAImage {
+    func applyFilter(_ filter: String, val: Int) -> RGBAImage {
         var newImage = self.imageRGBA!
         // Loop through each pixel of the image
         for y in 0..<newImage.height{
