@@ -9,10 +9,16 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    var filteredImage: UIImage?
+    
     // Interface Builer Outlet
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var imageToggle: UIButton!
     
+    @IBAction func onImageToggle(sender: UIButton) {
+        imageView.image = filteredImage
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -20,9 +26,7 @@ class ViewController: UIViewController {
         let image = UIImage(named: "sample")!
         let imageProcessor:ImageProcessor = ImageProcessor(imageRGBA: RGBAImage(image:image)!)!
         
-        let filteredImage = imageProcessor.applyFilter("negative").toUIImage()
-        
-        imageView.image = filteredImage
+        filteredImage = imageProcessor.applyFilter("negative").toUIImage()
         
         print("Execution finished")
     }

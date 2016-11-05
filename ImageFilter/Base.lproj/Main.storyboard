@@ -23,11 +23,15 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lFs-ZZ-m4V">
                                 <rect key="frame" x="0.0" y="338" width="284" height="30"/>
                                 <state key="normal" title="Show Filtered Image"/>
+                                <connections>
+                                    <action selector="onImageToggle:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8sb-8V-oSp"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="imageToggle" destination="lFs-ZZ-m4V" id="UXU-Yn-Zbq"/>
                         <outlet property="imageView" destination="jvM-47-h1h" id="kUf-7f-KsO"/>
                     </connections>
                 </viewController>
