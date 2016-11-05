@@ -17,12 +17,19 @@ class ViewController: UIViewController {
     @IBOutlet weak var imageToggle: UIButton!
     
     @IBAction func onImageToggle(sender: UIButton) {
-        imageView.image = filteredImage
+        if imageToggle.selected {
+            let image = UIImage(named: "sample")!
+            imageView.image = image
+            imageToggle.selected = false
+        } else {
+            imageView.image = filteredImage
+            imageToggle.selected = true
+        }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
+
         let image = UIImage(named: "sample")!
         let imageProcessor:ImageProcessor = ImageProcessor(imageRGBA: RGBAImage(image:image)!)!
         

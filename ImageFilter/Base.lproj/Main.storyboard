@@ -23,6 +23,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lFs-ZZ-m4V">
                                 <rect key="frame" x="0.0" y="338" width="284" height="30"/>
                                 <state key="normal" title="Show Filtered Image"/>
+                                <state key="selected" title="Show Before Image"/>
                                 <connections>
                                     <action selector="onImageToggle:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8sb-8V-oSp"/>
                                 </connections>
