@@ -12,6 +12,8 @@
 		2987A5541DCD1BAE001FDF06 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2987A5521DCD1BAE001FDF06 /* Main.storyboard */; };
 		2987A5561DCD1BAE001FDF06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2987A5551DCD1BAE001FDF06 /* Assets.xcassets */; };
 		2987A5591DCD1BAE001FDF06 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2987A5571DCD1BAE001FDF06 /* LaunchScreen.storyboard */; };
+		2987A5611DCDAF85001FDF06 /* RGBAImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2987A5601DCDAF85001FDF06 /* RGBAImage.swift */; };
+		2987A5631DCDE4C8001FDF06 /* ImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2987A5621DCDE4C8001FDF06 /* ImageProcessor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		2987A5551DCD1BAE001FDF06 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2987A5581DCD1BAE001FDF06 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2987A55A1DCD1BAE001FDF06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2987A5601DCDAF85001FDF06 /* RGBAImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RGBAImage.swift; sourceTree = "<group>"; };
+		2987A5621DCDE4C8001FDF06 /* ImageProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageProcessor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,10 +60,12 @@
 			children = (
 				2987A54E1DCD1BAE001FDF06 /* AppDelegate.swift */,
 				2987A5501DCD1BAE001FDF06 /* ViewController.swift */,
+				2987A5601DCDAF85001FDF06 /* RGBAImage.swift */,
 				2987A5521DCD1BAE001FDF06 /* Main.storyboard */,
 				2987A5551DCD1BAE001FDF06 /* Assets.xcassets */,
 				2987A5571DCD1BAE001FDF06 /* LaunchScreen.storyboard */,
 				2987A55A1DCD1BAE001FDF06 /* Info.plist */,
+				2987A5621DCDE4C8001FDF06 /* ImageProcessor.swift */,
 			);
 			path = ImageFilter;
 			sourceTree = "<group>";
@@ -96,6 +102,7 @@
 				TargetAttributes = {
 					2987A54A1DCD1BAE001FDF06 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = M89DBD7R74;
 					};
 				};
 			};
@@ -136,6 +143,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2987A5511DCD1BAE001FDF06 /* ViewController.swift in Sources */,
+				2987A5611DCDAF85001FDF06 /* RGBAImage.swift in Sources */,
+				2987A5631DCDE4C8001FDF06 /* ImageProcessor.swift in Sources */,
 				2987A54F1DCD1BAE001FDF06 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -251,10 +260,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = ImageFilter/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jacksonisaac.ImageFilter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -262,10 +275,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = ImageFilter/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jacksonisaac.ImageFilter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
