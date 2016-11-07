@@ -80,7 +80,6 @@
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstItem="lFs-ZZ-m4V" firstAttribute="width" secondItem="nja-km-Ll8" secondAttribute="width" id="Y0W-9M-aDB"/>
-                                                    <constraint firstItem="0m3-SR-OMo" firstAttribute="width" secondItem="bdT-n9-wpu" secondAttribute="width" id="hfk-hB-Qyo"/>
                                                     <constraint firstItem="nja-km-Ll8" firstAttribute="width" secondItem="0m3-SR-OMo" secondAttribute="width" id="ojv-PH-Yak"/>
                                                 </constraints>
                                             </stackView>
