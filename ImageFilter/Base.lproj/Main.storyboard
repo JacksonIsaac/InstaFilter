@@ -40,9 +40,6 @@
                                                         </constraints>
                                                         <state key="normal" title="New Photo"/>
                                                         <state key="selected" title="Show Before Image"/>
-                                                        <connections>
-                                                            <action selector="onImageToggle:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8sb-8V-oSp"/>
-                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nja-km-Ll8">
                                                         <rect key="frame" x="94" y="0.0" width="93.5" height="44"/>
@@ -50,9 +47,8 @@
                                                             <constraint firstAttribute="height" constant="44" id="5W3-LS-log"/>
                                                         </constraints>
                                                         <state key="normal" title="Filter"/>
-                                                        <state key="selected" title="Show Before Image"/>
                                                         <connections>
-                                                            <action selector="onImageToggle:" destination="BYZ-38-t0r" eventType="touchUpInside" id="b5V-zF-v3U"/>
+                                                            <action selector="onFilter:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1dM-7t-Jcu"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0m3-SR-OMo">
@@ -62,9 +58,6 @@
                                                         </constraints>
                                                         <state key="normal" title="Compare"/>
                                                         <state key="selected" title="Show Before Image"/>
-                                                        <connections>
-                                                            <action selector="onImageToggle:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UHe-u1-ky8"/>
-                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bdT-n9-wpu">
                                                         <rect key="frame" x="281.5" y="0.0" width="93.5" height="44"/>
@@ -73,15 +66,8 @@
                                                         </constraints>
                                                         <state key="normal" title="Share"/>
                                                         <state key="selected" title="Show Before Image"/>
-                                                        <connections>
-                                                            <action selector="onImageToggle:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fG7-H4-Aid"/>
-                                                        </connections>
                                                     </button>
                                                 </subviews>
-                                                <constraints>
-                                                    <constraint firstItem="lFs-ZZ-m4V" firstAttribute="width" secondItem="nja-km-Ll8" secondAttribute="width" id="Y0W-9M-aDB"/>
-                                                    <constraint firstItem="nja-km-Ll8" firstAttribute="width" secondItem="0m3-SR-OMo" secondAttribute="width" id="ojv-PH-Yak"/>
-                                                </constraints>
                                             </stackView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -104,8 +90,10 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="imageToggle" destination="lFs-ZZ-m4V" id="UXU-Yn-Zbq"/>
+                        <outlet property="bottomMenu" destination="pnf-Z3-dkZ" id="JcW-ZN-8lB"/>
+                        <outlet property="filterButton" destination="nja-km-Ll8" id="NTh-z9-BGC"/>
                         <outlet property="imageView" destination="jvM-47-h1h" id="kUf-7f-KsO"/>
+                        <outlet property="secondaryMenu" destination="qsX-8E-MwU" id="iEw-yJ-4pA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
