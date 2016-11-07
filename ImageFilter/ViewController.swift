@@ -14,28 +14,15 @@ class ViewController: UIViewController {
     
     // Interface Builer Outlet
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var imageToggle: UIButton!
     
-    @IBAction func onImageToggle(_ sender: UIButton) {
-        if imageToggle.isSelected {
-            let image = UIImage(named: "sample")!
-            imageView.image = image
-            imageToggle.isSelected = false
-        } else {
-            imageView.image = filteredImage
-            imageToggle.isSelected = true
-        }
-    }
+    @IBOutlet var secondaryMenu: UIView!
+    @IBOutlet var bottomMenu: UIView!
+    
+    @IBOutlet var filterButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-
-        let image = UIImage(named: "sample")!
-        let imageProcessor:ImageProcessor = ImageProcessor(imageRGBA: RGBAImage(image:image)!)!
-        
-        filteredImage = imageProcessor.applyFilter("negative").toUIImage()
-        
-        print("Execution finished")
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,6 +30,9 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func onFilter(_ sender: Any) {
+        view.addSubview(secondaryMenu)
+    }
 
 }
 
