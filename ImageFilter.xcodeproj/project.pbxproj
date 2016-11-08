@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2987212E1DD1B8F600F378D7 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2987212D1DD1B8F600F378D7 /* TableViewController.swift */; };
 		2987A54F1DCD1BAE001FDF06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2987A54E1DCD1BAE001FDF06 /* AppDelegate.swift */; };
 		2987A5511DCD1BAE001FDF06 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2987A5501DCD1BAE001FDF06 /* ViewController.swift */; };
 		2987A5541DCD1BAE001FDF06 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2987A5521DCD1BAE001FDF06 /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2987212D1DD1B8F600F378D7 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		2987A54B1DCD1BAE001FDF06 /* ImageFilter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageFilter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2987A54E1DCD1BAE001FDF06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2987A5501DCD1BAE001FDF06 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				2987A5571DCD1BAE001FDF06 /* LaunchScreen.storyboard */,
 				2987A55A1DCD1BAE001FDF06 /* Info.plist */,
 				2987A5621DCDE4C8001FDF06 /* ImageProcessor.swift */,
+				2987212D1DD1B8F600F378D7 /* TableViewController.swift */,
 			);
 			path = ImageFilter;
 			sourceTree = "<group>";
@@ -146,6 +149,7 @@
 				2987A5511DCD1BAE001FDF06 /* ViewController.swift in Sources */,
 				2987A5611DCDAF85001FDF06 /* RGBAImage.swift in Sources */,
 				2987A5631DCDE4C8001FDF06 /* ImageProcessor.swift in Sources */,
+				2987212E1DD1B8F600F378D7 /* TableViewController.swift in Sources */,
 				2987A54F1DCD1BAE001FDF06 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
