@@ -19,9 +19,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet var bottomMenu: UIView!
     
     @IBOutlet var filterButton: UIButton!
-    
-    @IBOutlet var newPhoto: UIButton!
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -35,6 +33,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func onShare(_ sender: Any) {
+        let activityController = UIActivityViewController(activityItems: [imageView.image!], applicationActivities: nil)
+        present(activityController, animated: true, completion: nil)
+        
     }
     
     @IBAction func onNewPhoto(_ sender: Any) {

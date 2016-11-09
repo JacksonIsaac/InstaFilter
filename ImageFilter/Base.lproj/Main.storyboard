@@ -70,6 +70,9 @@
                                                         </constraints>
                                                         <state key="normal" title="Share"/>
                                                         <state key="selected" title="Show Before Image"/>
+                                                        <connections>
+                                                            <action selector="onShare:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EzE-To-j8A"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -97,7 +100,6 @@
                         <outlet property="bottomMenu" destination="pnf-Z3-dkZ" id="JcW-ZN-8lB"/>
                         <outlet property="filterButton" destination="nja-km-Ll8" id="NTh-z9-BGC"/>
                         <outlet property="imageView" destination="jvM-47-h1h" id="kUf-7f-KsO"/>
-                        <outlet property="newPhoto" destination="lFs-ZZ-m4V" id="bOo-F1-zsW"/>
                         <outlet property="secondaryMenu" destination="qsX-8E-MwU" id="iEw-yJ-4pA"/>
                     </connections>
                 </viewController>
