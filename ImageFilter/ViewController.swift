@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    var image: UIImage?
     var filteredImage: UIImage?
     
     // Interface Builer Outlet
@@ -25,14 +26,80 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // Do any additional setup after loading the view, typically from a nib.
         
         secondaryMenu.backgroundColor = UIColor.white.withAlphaComponent(0.5)
-    
         secondaryMenu.translatesAutoresizingMaskIntoConstraints = false
+        
+        image = imageView.image
 
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func onNegativeFilter(_ sender: UIButton) {
+        if(sender.isSelected) {
+            imageView.image = image
+            sender.isSelected = false
+        } else {
+            let imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.image!)!)
+            filteredImage = imageProcessor?.applyFilter("negative").toUIImage()
+            imageView.image = filteredImage
+
+            sender.isSelected = true
+        }
+    }
+    
+    @IBAction func onRedFilter(_ sender: UIButton) {
+        if(sender.isSelected) {
+            imageView.image = image
+            sender.isSelected = false
+        } else {
+            let imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.image!)!)
+            filteredImage = imageProcessor?.applyFilter("redFilter").toUIImage()
+            imageView.image = filteredImage
+            
+            sender.isSelected = true
+        }
+    }
+    
+    @IBAction func onBlueFilter(_ sender: UIButton) {
+        if(sender.isSelected) {
+            imageView.image = image
+            sender.isSelected = false
+        } else {
+            let imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.image!)!)
+            filteredImage = imageProcessor?.applyFilter("blueFilter").toUIImage()
+            imageView.image = filteredImage
+            
+            sender.isSelected = true
+        }
+    }
+    
+    @IBAction func onGreenFilter(_ sender: UIButton) {
+        if(sender.isSelected) {
+            imageView.image = image
+            sender.isSelected = false
+        } else {
+            let imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.image!)!)
+            filteredImage = imageProcessor?.applyFilter("greenFilter").toUIImage()
+            imageView.image = filteredImage
+            
+            sender.isSelected = true
+        }
+    }
+
+    @IBAction func onAlphaFilter(_ sender: UIButton) {
+        if(sender.isSelected) {
+            imageView.image = image
+            sender.isSelected = false
+        } else {
+            let imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.image!)!)
+            filteredImage = imageProcessor?.applyFilter("alphaFilter").toUIImage()
+            imageView.image = filteredImage
+            
+            sender.isSelected = true
+        }
     }
     
     @IBAction func onShare(_ sender: Any) {
@@ -77,6 +144,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         dismiss(animated: true, completion: nil)
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage{
             imageView.image = image
+            self.image = image
         }
     }
     
