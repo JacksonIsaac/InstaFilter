@@ -37,8 +37,8 @@ class ImageProcessor {
         }
     }
     
-    // Apply default filter to the image and return the RGBAImage.
-    func applyFilter(_ filter: String) -> RGBAImage {
+    // Apply filter with custom intensity to the image and return the RGBAImage.
+    func applyFilter(_ filter: String, val: Int = 255) -> RGBAImage {
         var newImage = self.imageRGBA!
         // Loop through each pixel of the image
         for y in 0..<newImage.height{
@@ -54,46 +54,6 @@ class ImageProcessor {
                     pixel.green = UInt8(max(0, min(255,UInt8(255-pixel.green))))
                     pixel.blue = UInt8(max(0, min(255,UInt8(255-pixel.blue))))
                     newImage.pixels[index] = pixel
-                // Add red color filter to the whole image.
-                case "redFilter":
-                    pixel.red = UInt8(255)
-                    newImage.pixels[index] = pixel
-                    break
-                // Add green color filter to the whole image.
-                case "greenFilter":
-                    pixel.green = UInt8(255)
-                    newImage.pixels[index] = pixel
-                    break
-                // Add blue color filter to the whole image.
-                case "blueFilter":
-                    pixel.blue = UInt8(255)
-                    newImage.pixels[index] = pixel
-                    break
-                // Make the image either transparent (0) or opaque(255)
-                case "alphaFilter":
-                    pixel.alpha = UInt8(128)
-                    newImage.pixels[index] = pixel
-                    break
-                default:
-                    print("Nothing to do!")
-                    return newImage
-                }
-            }
-        }
-        return newImage
-    }
-    
-    // Apply filter with custom intensity to the image and return the RGBAImage.
-    func applyFilter(_ filter: String, val: Int) -> RGBAImage {
-        var newImage = self.imageRGBA!
-        // Loop through each pixel of the image
-        for y in 0..<newImage.height{
-            for x in 0..<newImage.width {
-                let index = y*newImage.width + x
-                var pixel = newImage.pixels[index]
-                
-                // Switch-case for different type of filters.
-                switch filter {
                 // Add red color filter to the whole image.
                 case "redFilter":
                     pixel.red = UInt8(max(0, min(255,val)))
