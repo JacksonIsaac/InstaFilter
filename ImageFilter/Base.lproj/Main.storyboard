@@ -24,9 +24,10 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="pl3-jK-3lH">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sample" translatesAutoresizingMaskIntoConstraints="NO" id="jvM-47-h1h">
+                                    <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sample" translatesAutoresizingMaskIntoConstraints="NO" id="jvM-47-h1h">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <gestureRecognizers/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pnf-Z3-dkZ">
                                         <rect key="frame" x="0.0" y="623" width="375" height="44"/>
@@ -40,7 +41,6 @@
                                                             <constraint firstAttribute="height" constant="44" id="5ex-Ny-P4F"/>
                                                         </constraints>
                                                         <state key="normal" title="New Photo"/>
-                                                        <state key="selected" title="Show Before Image"/>
                                                         <connections>
                                                             <action selector="onNewPhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6qJ-GN-s0H"/>
                                                         </connections>
@@ -61,7 +61,9 @@
                                                             <constraint firstAttribute="height" constant="44" id="TUS-KC-l22"/>
                                                         </constraints>
                                                         <state key="normal" title="Compare"/>
-                                                        <state key="selected" title="Show Before Image"/>
+                                                        <connections>
+                                                            <action selector="onCompare:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UMw-ia-0Fh"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bdT-n9-wpu">
                                                         <rect key="frame" x="281.5" y="0.0" width="93.5" height="44"/>
@@ -69,7 +71,6 @@
                                                             <constraint firstAttribute="height" constant="44" id="Hfe-jo-DIR"/>
                                                         </constraints>
                                                         <state key="normal" title="Share"/>
-                                                        <state key="selected" title="Show Before Image"/>
                                                         <connections>
                                                             <action selector="onShare:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EzE-To-j8A"/>
                                                         </connections>
@@ -100,6 +101,7 @@
                         <outlet property="bottomMenu" destination="pnf-Z3-dkZ" id="JcW-ZN-8lB"/>
                         <outlet property="filterButton" destination="nja-km-Ll8" id="NTh-z9-BGC"/>
                         <outlet property="imageView" destination="jvM-47-h1h" id="kUf-7f-KsO"/>
+                        <outlet property="originalOverlay" destination="hum-em-5Zh" id="dy9-he-Qhn"/>
                         <outlet property="secondaryMenu" destination="qsX-8E-MwU" id="iEw-yJ-4pA"/>
                     </connections>
                 </viewController>
@@ -155,6 +157,28 @@
                         <constraint firstItem="uVz-YS-v3x" firstAttribute="top" secondItem="qsX-8E-MwU" secondAttribute="top" id="6vf-xf-fa3"/>
                         <constraint firstAttribute="bottom" secondItem="uVz-YS-v3x" secondAttribute="bottom" id="BdU-TT-Z8f"/>
                         <constraint firstItem="uVz-YS-v3x" firstAttribute="leading" secondItem="qsX-8E-MwU" secondAttribute="leading" id="uRE-aO-Gzf"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" id="hum-em-5Zh" userLabel="Original Image overlay">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Original" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z8r-vm-ktn">
+                            <rect key="frame" x="0.0" y="0.0" width="240" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="Mh4-Dw-H4p"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="z8r-vm-ktn" secondAttribute="trailing" id="GMC-qX-V9k"/>
+                        <constraint firstItem="z8r-vm-ktn" firstAttribute="top" secondItem="hum-em-5Zh" secondAttribute="top" id="Ht0-hN-Eq6"/>
+                        <constraint firstAttribute="bottom" secondItem="z8r-vm-ktn" secondAttribute="bottom" id="c9t-SI-KFb"/>
+                        <constraint firstItem="z8r-vm-ktn" firstAttribute="leading" secondItem="hum-em-5Zh" secondAttribute="leading" id="dMk-zq-hot"/>
                     </constraints>
                 </view>
             </objects>

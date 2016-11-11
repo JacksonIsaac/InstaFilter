@@ -11,7 +11,11 @@ import UIKit
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var image: UIImage?
+    var interImage: UIImage?
     var filteredImage: UIImage?
+    var imageProcessor: ImageProcessor?
+    
+    @IBOutlet var originalOverlay: UIView!
     
     // Interface Builer Outlet
     @IBOutlet weak var imageView: UIImageView!
@@ -29,7 +33,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         secondaryMenu.translatesAutoresizingMaskIntoConstraints = false
         
         image = imageView.image
-
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,12 +41,43 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // Dispose of any resources that can be recreated.
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.addSubview(originalOverlay)
+        imageView.image = image
+//        print("Image Touched in touchesBegan")
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.originalOverlay.removeFromSuperview()
+        if (filteredImage != nil) {
+            imageView.image = filteredImage
+        }
+    }
+    
+    @IBAction func onCompare(_ sender: UIButton) {
+        if(sender.isSelected) {
+            if (filteredImage != nil) {
+                imageView.image = filteredImage
+            }
+            self.originalOverlay.removeFromSuperview()
+            sender.isSelected = false
+        } else {
+            view.addSubview(originalOverlay)
+            imageView.image = image
+            sender.isSelected = true
+        }
+    }
+    
     @IBAction func onNegativeFilter(_ sender: UIButton) {
         if(sender.isSelected) {
             imageView.image = image
             sender.isSelected = false
         } else {
-            let imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.image!)!)
+            if (filteredImage != nil) {
+                imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.filteredImage!)!)
+            } else {
+                imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.image!)!)
+            }
             filteredImage = imageProcessor?.applyFilter("negative").toUIImage()
             imageView.image = filteredImage
 
