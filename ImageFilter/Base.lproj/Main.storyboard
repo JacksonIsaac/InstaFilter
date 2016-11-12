@@ -21,6 +21,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="sample" translatesAutoresizingMaskIntoConstraints="NO" id="fvR-d2-Fs6">
+                                <rect key="frame" x="0.0" y="22" width="375" height="623"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <gestureRecognizers/>
+                            </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="pl3-jK-3lH">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
@@ -101,6 +107,7 @@
                         <outlet property="bottomMenu" destination="pnf-Z3-dkZ" id="JcW-ZN-8lB"/>
                         <outlet property="compareButton" destination="0m3-SR-OMo" id="GBo-d6-O5I"/>
                         <outlet property="filterButton" destination="nja-km-Ll8" id="NTh-z9-BGC"/>
+                        <outlet property="filteredImageView" destination="fvR-d2-Fs6" id="O7s-79-bfN"/>
                         <outlet property="imageView" destination="jvM-47-h1h" id="kUf-7f-KsO"/>
                         <outlet property="originalOverlay" destination="hum-em-5Zh" id="dy9-he-Qhn"/>
                         <outlet property="secondaryMenu" destination="qsX-8E-MwU" id="iEw-yJ-4pA"/>

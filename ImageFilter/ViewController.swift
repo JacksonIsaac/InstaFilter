@@ -20,6 +20,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // Interface Builer Outlet
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet var filteredImageView: UIImageView!
     
     @IBOutlet var secondaryMenu: UIView!
     @IBOutlet var bottomMenu: UIView!
@@ -35,7 +36,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         originalOverlay.translatesAutoresizingMaskIntoConstraints = false
         
         image = imageView.image
-//        filteredImage = image
         compareButton.isEnabled = false
     }
 
@@ -74,8 +74,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.image!)!)
             }
             filteredImage = imageProcessor?.applyFilter("negative").toUIImage()
-            imageView.image = filteredImage
-
+            showFilteredImage(filteredImage: filteredImage!)
+            
             sender.isSelected = true
         }
     }
@@ -92,7 +92,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.image!)!)
             }
             filteredImage = imageProcessor?.applyFilter("redFilter").toUIImage()
-            imageView.image = filteredImage
+            showFilteredImage(filteredImage: filteredImage!)
             
             sender.isSelected = true
         }
@@ -110,7 +110,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.image!)!)
             }
             filteredImage = imageProcessor?.applyFilter("blueFilter").toUIImage()
-            imageView.image = filteredImage
+            showFilteredImage(filteredImage: filteredImage!)
             
             sender.isSelected = true
         }
@@ -128,7 +128,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.image!)!)
             }
             filteredImage = imageProcessor?.applyFilter("greenFilter").toUIImage()
-            imageView.image = filteredImage
+            showFilteredImage(filteredImage: filteredImage!)
             
             sender.isSelected = true
         }
@@ -146,7 +146,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.image!)!)
             }
             filteredImage = imageProcessor?.applyFilter("alphaFilter").toUIImage()
-            imageView.image = filteredImage
+            showFilteredImage(filteredImage: filteredImage!)
             
             sender.isSelected = true
         }
@@ -172,6 +172,30 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         self.present(actionSheet, animated: true, completion: nil)
+    }
+    
+    func showFilteredImage(filteredImage: UIImage) {
+        imageView.alpha = 1
+        filteredImageView.alpha = 0
+        
+        filteredImageView.image = filteredImage
+        
+        UIView.animate(withDuration: 0.4) {
+            self.filteredImageView.alpha = 1.0
+            self.imageView.alpha = 0
+        }
+    }
+    
+    func showOriginalImage() {
+        imageView.alpha = 0
+        filteredImageView.alpha = 1
+        
+        filteredImageView.image = filteredImage
+        
+        UIView.animate(withDuration: 0.4) {
+            self.filteredImageView.alpha = 0
+            self.imageView.alpha = 1
+        }
     }
     
     func enableCompareButton() {
@@ -262,13 +286,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
         view.layoutIfNeeded()
         
-        imageView.image = image
+        showOriginalImage()
     }
     
     func hideOverlayOriginalImage() {
         self.originalOverlay.removeFromSuperview()
         if (filteredImage != nil) {
-            imageView.image = filteredImage
+            showFilteredImage(filteredImage: filteredImage!)
         }
     }
 
