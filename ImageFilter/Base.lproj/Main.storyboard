@@ -99,6 +99,7 @@
                     </view>
                     <connections>
                         <outlet property="bottomMenu" destination="pnf-Z3-dkZ" id="JcW-ZN-8lB"/>
+                        <outlet property="compareButton" destination="0m3-SR-OMo" id="GBo-d6-O5I"/>
                         <outlet property="filterButton" destination="nja-km-Ll8" id="NTh-z9-BGC"/>
                         <outlet property="imageView" destination="jvM-47-h1h" id="kUf-7f-KsO"/>
                         <outlet property="originalOverlay" destination="hum-em-5Zh" id="dy9-he-Qhn"/>
@@ -175,10 +176,9 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="z8r-vm-ktn" secondAttribute="trailing" id="GMC-qX-V9k"/>
-                        <constraint firstItem="z8r-vm-ktn" firstAttribute="top" secondItem="hum-em-5Zh" secondAttribute="top" id="Ht0-hN-Eq6"/>
-                        <constraint firstAttribute="bottom" secondItem="z8r-vm-ktn" secondAttribute="bottom" id="c9t-SI-KFb"/>
-                        <constraint firstItem="z8r-vm-ktn" firstAttribute="leading" secondItem="hum-em-5Zh" secondAttribute="leading" id="dMk-zq-hot"/>
+                        <constraint firstAttribute="trailing" secondItem="z8r-vm-ktn" secondAttribute="trailing" id="8aF-2m-Nw3"/>
+                        <constraint firstItem="z8r-vm-ktn" firstAttribute="top" secondItem="hum-em-5Zh" secondAttribute="top" id="GmJ-bN-oAv"/>
+                        <constraint firstItem="z8r-vm-ktn" firstAttribute="leading" secondItem="hum-em-5Zh" secondAttribute="leading" id="b3X-BS-2RB"/>
                     </constraints>
                 </view>
             </objects>
