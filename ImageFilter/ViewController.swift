@@ -11,9 +11,10 @@ import UIKit
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var image: UIImage?
-    var interImage: UIImage?
     var filteredImage: UIImage?
     var imageProcessor: ImageProcessor?
+    
+    @IBOutlet var compareButton: UIButton!
     
     @IBOutlet var originalOverlay: UIView!
     
@@ -31,9 +32,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         secondaryMenu.backgroundColor = UIColor.white.withAlphaComponent(0.5)
         secondaryMenu.translatesAutoresizingMaskIntoConstraints = false
+        originalOverlay.translatesAutoresizingMaskIntoConstraints = false
         
         image = imageView.image
-        
+//        filteredImage = image
+        compareButton.isEnabled = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,33 +45,25 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        view.addSubview(originalOverlay)
-        imageView.image = image
-//        print("Image Touched in touchesBegan")
+        showOverlayOriginalImage()
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.originalOverlay.removeFromSuperview()
-        if (filteredImage != nil) {
-            imageView.image = filteredImage
-        }
+        hideOverlayOriginalImage()
     }
     
     @IBAction func onCompare(_ sender: UIButton) {
         if(sender.isSelected) {
-            if (filteredImage != nil) {
-                imageView.image = filteredImage
-            }
-            self.originalOverlay.removeFromSuperview()
+            hideOverlayOriginalImage()
             sender.isSelected = false
         } else {
-            view.addSubview(originalOverlay)
-            imageView.image = image
+            showOverlayOriginalImage()
             sender.isSelected = true
         }
     }
     
     @IBAction func onNegativeFilter(_ sender: UIButton) {
+        enableCompareButton()
         if(sender.isSelected) {
             imageView.image = image
             sender.isSelected = false
@@ -86,11 +81,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     @IBAction func onRedFilter(_ sender: UIButton) {
+        enableCompareButton()
         if(sender.isSelected) {
             imageView.image = image
             sender.isSelected = false
         } else {
-            let imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.image!)!)
+            if (filteredImage != nil) {
+                imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.filteredImage!)!)
+            } else {
+                imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.image!)!)
+            }
             filteredImage = imageProcessor?.applyFilter("redFilter").toUIImage()
             imageView.image = filteredImage
             
@@ -99,11 +99,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     @IBAction func onBlueFilter(_ sender: UIButton) {
+        enableCompareButton()
         if(sender.isSelected) {
             imageView.image = image
             sender.isSelected = false
         } else {
-            let imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.image!)!)
+            if (filteredImage != nil) {
+                imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.filteredImage!)!)
+            } else {
+                imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.image!)!)
+            }
             filteredImage = imageProcessor?.applyFilter("blueFilter").toUIImage()
             imageView.image = filteredImage
             
@@ -112,11 +117,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     @IBAction func onGreenFilter(_ sender: UIButton) {
+        enableCompareButton()
         if(sender.isSelected) {
             imageView.image = image
             sender.isSelected = false
         } else {
-            let imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.image!)!)
+            if (filteredImage != nil) {
+                imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.filteredImage!)!)
+            } else {
+                imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.image!)!)
+            }
             filteredImage = imageProcessor?.applyFilter("greenFilter").toUIImage()
             imageView.image = filteredImage
             
@@ -125,11 +135,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
 
     @IBAction func onAlphaFilter(_ sender: UIButton) {
+        enableCompareButton()
         if(sender.isSelected) {
             imageView.image = image
             sender.isSelected = false
         } else {
-            let imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.image!)!)
+            if (filteredImage != nil) {
+                imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.filteredImage!)!)
+            } else {
+                imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.image!)!)
+            }
             filteredImage = imageProcessor?.applyFilter("alphaFilter").toUIImage()
             imageView.image = filteredImage
             
@@ -157,6 +172,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         self.present(actionSheet, animated: true, completion: nil)
+    }
+    
+    func enableCompareButton() {
+        if compareButton.isEnabled == false {
+            compareButton.isEnabled = true
+        }
     }
     
     func showCamera() {
@@ -226,6 +247,29 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 self.secondaryMenu.removeFromSuperview()
             }
         })
+    }
+    
+    func showOverlayOriginalImage() {
+        view.addSubview(originalOverlay)
+        
+        let topConstraint = originalOverlay.topAnchor.constraint(equalTo: view.topAnchor)
+        let leftConstraint = originalOverlay.leftAnchor.constraint(equalTo: view.leftAnchor)
+        let rightConstraint = originalOverlay.rightAnchor.constraint(equalTo: view.rightAnchor)
+
+        let heightConstraint = originalOverlay.heightAnchor.constraint(equalToConstant: 44)
+
+        NSLayoutConstraint.activate([topConstraint, leftConstraint, rightConstraint, heightConstraint])
+
+        view.layoutIfNeeded()
+        
+        imageView.image = image
+    }
+    
+    func hideOverlayOriginalImage() {
+        self.originalOverlay.removeFromSuperview()
+        if (filteredImage != nil) {
+            imageView.image = filteredImage
+        }
     }
 
 }
