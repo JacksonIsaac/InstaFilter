@@ -81,19 +81,24 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             hideSecondaryMenu()
             sender.isSelected = false
         } else {
+            if self.sliderView.isDescendant(of: self.view) {
+                hideSlider()
+                editButton.isSelected = false
+            }
             showSecondaryMenu()
             sender.isSelected = true
         }
     }
     
     @IBAction func onEdit(_ sender: UIButton) {
-        if self.secondaryMenu.isDescendant(of: self.view) {
-            self.secondaryMenu.removeFromSuperview()
-        }
         if(sender.isSelected) {
             hideSlider()
             sender.isSelected = false
         } else {
+            if self.secondaryMenu.isDescendant(of: self.view) {
+                filterButton.isSelected = false
+                hideSecondaryMenu()
+            }
             showSlider()
             sender.isSelected = true
         }
@@ -262,10 +267,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
     
-    @IBAction func filterIntensityChanged(_ sender: UISlider) {
-        applyFilter(filterName: filterName!, val: Int(filterSlider.value))
-    }
-    
     func hideSlider() {
         UIView.animate(withDuration: 0.4, animations: {
             self.sliderView.alpha = 0
@@ -274,6 +275,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 self.sliderView.removeFromSuperview()
             }
         })
+    }
+    
+    @IBAction func filterIntensityChanged(_ sender: UISlider) {
+        applyFilter(filterName: filterName!, val: Int(filterSlider.value))
     }
     
     func showSecondaryMenu() {
