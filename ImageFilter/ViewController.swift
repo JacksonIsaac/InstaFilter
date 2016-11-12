@@ -13,10 +13,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var image: UIImage?
     var filteredImage: UIImage?
     var imageProcessor: ImageProcessor?
+    var filterName: String?
     
     @IBOutlet var compareButton: UIButton!
     
+    @IBOutlet var editButton: UIButton!
+    
     @IBOutlet var originalOverlay: UIView!
+    
+    @IBOutlet var filterSlider: UISlider!
     
     // Interface Builer Outlet
     @IBOutlet weak var imageView: UIImageView!
@@ -24,6 +29,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @IBOutlet var secondaryMenu: UIView!
     @IBOutlet var bottomMenu: UIView!
+    @IBOutlet var sliderView: UIView!
     
     @IBOutlet var filterButton: UIButton!
         
@@ -34,9 +40,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         secondaryMenu.backgroundColor = UIColor.white.withAlphaComponent(0.5)
         secondaryMenu.translatesAutoresizingMaskIntoConstraints = false
         originalOverlay.translatesAutoresizingMaskIntoConstraints = false
+        sliderView.translatesAutoresizingMaskIntoConstraints = false
         
         image = imageView.image
         compareButton.isEnabled = false
+        editButton.isEnabled = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,112 +58,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         hideOverlayOriginalImage()
-    }
-    
-    @IBAction func onCompare(_ sender: UIButton) {
-        if(sender.isSelected) {
-            hideOverlayOriginalImage()
-            sender.isSelected = false
-        } else {
-            showOverlayOriginalImage()
-            sender.isSelected = true
-        }
-    }
-    
-    @IBAction func onNegativeFilter(_ sender: UIButton) {
-        enableCompareButton()
-        if(sender.isSelected) {
-            imageView.image = image
-            sender.isSelected = false
-        } else {
-            if (filteredImage != nil) {
-                imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.filteredImage!)!)
-            } else {
-                imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.image!)!)
-            }
-            filteredImage = imageProcessor?.applyFilter("negative").toUIImage()
-            showFilteredImage(filteredImage: filteredImage!)
-            
-            sender.isSelected = true
-        }
-    }
-    
-    @IBAction func onRedFilter(_ sender: UIButton) {
-        enableCompareButton()
-        if(sender.isSelected) {
-            imageView.image = image
-            sender.isSelected = false
-        } else {
-            if (filteredImage != nil) {
-                imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.filteredImage!)!)
-            } else {
-                imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.image!)!)
-            }
-            filteredImage = imageProcessor?.applyFilter("redFilter").toUIImage()
-            showFilteredImage(filteredImage: filteredImage!)
-            
-            sender.isSelected = true
-        }
-    }
-    
-    @IBAction func onBlueFilter(_ sender: UIButton) {
-        enableCompareButton()
-        if(sender.isSelected) {
-            imageView.image = image
-            sender.isSelected = false
-        } else {
-            if (filteredImage != nil) {
-                imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.filteredImage!)!)
-            } else {
-                imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.image!)!)
-            }
-            filteredImage = imageProcessor?.applyFilter("blueFilter").toUIImage()
-            showFilteredImage(filteredImage: filteredImage!)
-            
-            sender.isSelected = true
-        }
-    }
-    
-    @IBAction func onGreenFilter(_ sender: UIButton) {
-        enableCompareButton()
-        if(sender.isSelected) {
-            imageView.image = image
-            sender.isSelected = false
-        } else {
-            if (filteredImage != nil) {
-                imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.filteredImage!)!)
-            } else {
-                imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.image!)!)
-            }
-            filteredImage = imageProcessor?.applyFilter("greenFilter").toUIImage()
-            showFilteredImage(filteredImage: filteredImage!)
-            
-            sender.isSelected = true
-        }
-    }
-
-    @IBAction func onAlphaFilter(_ sender: UIButton) {
-        enableCompareButton()
-        if(sender.isSelected) {
-            imageView.image = image
-            sender.isSelected = false
-        } else {
-            if (filteredImage != nil) {
-                imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.filteredImage!)!)
-            } else {
-                imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.image!)!)
-            }
-            filteredImage = imageProcessor?.applyFilter("alphaFilter").toUIImage()
-            showFilteredImage(filteredImage: filteredImage!)
-            
-            sender.isSelected = true
-        }
-    }
-    
-    @IBAction func onShare(_ sender: Any) {
-        let activityController = UIActivityViewController(activityItems: [imageView.image!], applicationActivities: nil)
-        present(activityController, animated: true, completion: nil)
-        
     }
     
     @IBAction func onNewPhoto(_ sender: Any) {
@@ -172,6 +74,110 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         self.present(actionSheet, animated: true, completion: nil)
+    }
+    
+    @IBAction func onFilter(_ sender: UIButton) {
+        if(sender.isSelected) {
+            hideSecondaryMenu()
+            sender.isSelected = false
+        } else {
+            showSecondaryMenu()
+            sender.isSelected = true
+        }
+    }
+    
+    @IBAction func onEdit(_ sender: UIButton) {
+        if self.secondaryMenu.isDescendant(of: self.view) {
+            self.secondaryMenu.removeFromSuperview()
+        }
+        if(sender.isSelected) {
+            hideSlider()
+            sender.isSelected = false
+        } else {
+            showSlider()
+            sender.isSelected = true
+        }
+    }
+    
+    @IBAction func onCompare(_ sender: UIButton) {
+        if(sender.isSelected) {
+            hideOverlayOriginalImage()
+            sender.isSelected = false
+        } else {
+            showOverlayOriginalImage()
+            sender.isSelected = true
+        }
+    }
+    
+    @IBAction func onShare(_ sender: Any) {
+        let activityController = UIActivityViewController(activityItems: [imageView.image!], applicationActivities: nil)
+        present(activityController, animated: true, completion: nil)
+    }
+    
+    @IBAction func onNegativeFilter(_ sender: UIButton) {
+        filterName = "negative"
+        enableCompareButton()
+        if(sender.isSelected) {
+            imageView.image = image
+            sender.isSelected = false
+        } else {
+            applyFilter(filterName: filterName!)
+            sender.isSelected = true
+        }
+    }
+    
+    @IBAction func onRedFilter(_ sender: UIButton) {
+        filterName = "redFilter"
+        enableCompareButton()
+        if(sender.isSelected) {
+            imageView.image = image
+            sender.isSelected = false
+        } else {
+            applyFilter(filterName: filterName!)
+            sender.isSelected = true
+        }
+    }
+    
+    @IBAction func onBlueFilter(_ sender: UIButton) {
+        filterName = "blueFilter"
+        enableCompareButton()
+        if(sender.isSelected) {
+            imageView.image = image
+            sender.isSelected = false
+        } else {
+            applyFilter(filterName: filterName!)
+            sender.isSelected = true
+        }
+    }
+    
+    @IBAction func onGreenFilter(_ sender: UIButton) {
+        filterName = "greenFilter"
+        enableCompareButton()
+        if(sender.isSelected) {
+            imageView.image = image
+            sender.isSelected = false
+        } else {
+            applyFilter(filterName: filterName!)
+            sender.isSelected = true
+        }
+    }
+
+    @IBAction func onAlphaFilter(_ sender: UIButton) {
+        filterName = "alphaFilter"
+        enableCompareButton()
+        if(sender.isSelected) {
+            imageView.image = image
+            sender.isSelected = false
+        } else {
+            applyFilter(filterName: filterName!)
+            sender.isSelected = true
+        }
+    }
+    
+    func applyFilter(filterName: String, val: Int = 255) {
+        imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.image!)!)
+        filteredImage = imageProcessor?.applyFilter(filterName, val: val).toUIImage()
+        showFilteredImage(filteredImage: filteredImage!)
     }
     
     func showFilteredImage(filteredImage: UIImage) {
@@ -201,6 +207,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func enableCompareButton() {
         if compareButton.isEnabled == false {
             compareButton.isEnabled = true
+        }
+        if editButton.isEnabled == false {
+            editButton.isEnabled = true
         }
     }
     
@@ -232,14 +241,39 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func onFilter(_ sender: UIButton) {
-        if(sender.isSelected) {
-            hideSecondaryMenu()
-            sender.isSelected = false
-        } else {
-            showSecondaryMenu()
-            sender.isSelected = true
+    func showSlider() {
+        
+        view.addSubview(sliderView)
+        
+        let bottomConstraint = sliderView.bottomAnchor.constraint(equalTo: bottomMenu.topAnchor)
+        let leftConstraint = sliderView.leftAnchor.constraint(equalTo: view.leftAnchor)
+        let rightConstraint = sliderView.rightAnchor.constraint(equalTo: view.rightAnchor)
+        
+        let heightConstraint = sliderView.heightAnchor.constraint(equalToConstant: 44)
+        
+        NSLayoutConstraint.activate([bottomConstraint, leftConstraint, rightConstraint, heightConstraint])
+        
+        view.layoutIfNeeded()
+        
+        self.sliderView.alpha = 0
+        
+        UIView.animate(withDuration: 0.4) {
+            self.sliderView.alpha = 1.0
         }
+    }
+    
+    @IBAction func filterIntensityChanged(_ sender: UISlider) {
+        applyFilter(filterName: filterName!, val: Int(filterSlider.value))
+    }
+    
+    func hideSlider() {
+        UIView.animate(withDuration: 0.4, animations: {
+            self.sliderView.alpha = 0
+        }, completion: { completed in
+            if completed == true {
+                self.sliderView.removeFromSuperview()
+            }
+        })
     }
     
     func showSecondaryMenu() {
@@ -249,7 +283,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let leftConstraint = secondaryMenu.leftAnchor.constraint(equalTo: view.leftAnchor)
         let rightConstraint = secondaryMenu.rightAnchor.constraint(equalTo: view.rightAnchor)
         
-        let heightConstraint = secondaryMenu.heightAnchor.constraint(equalToConstant: 44)
+        let heightConstraint = secondaryMenu.heightAnchor.constraint(equalToConstant: 75)
         
         NSLayoutConstraint.activate([bottomConstraint, leftConstraint, rightConstraint, heightConstraint])
         
