@@ -121,64 +121,10 @@
                         <outlet property="filteredImageView" destination="fvR-d2-Fs6" id="O7s-79-bfN"/>
                         <outlet property="imageView" destination="jvM-47-h1h" id="kUf-7f-KsO"/>
                         <outlet property="originalOverlay" destination="hum-em-5Zh" id="dy9-he-Qhn"/>
-                        <outlet property="secondaryMenu" destination="qsX-8E-MwU" id="iEw-yJ-4pA"/>
                         <outlet property="sliderView" destination="RtR-oV-JnQ" id="ce4-fJ-gTO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" id="qsX-8E-MwU">
-                    <rect key="frame" x="0.0" y="0.0" width="307" height="128"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="uVz-YS-v3x">
-                            <rect key="frame" x="0.0" y="0.0" width="307" height="128"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EZu-eH-VxY">
-                                    <rect key="frame" x="0.0" y="0.0" width="61.5" height="128"/>
-                                    <state key="normal" title="Negative" image="negativeFilter"/>
-                                    <connections>
-                                        <action selector="onNegativeFilter:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3xN-0o-a3z"/>
-                                    </connections>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oHl-o3-elH">
-                                    <rect key="frame" x="61.5" y="0.0" width="61.5" height="128"/>
-                                    <state key="normal" title="Red" image="redFilter"/>
-                                    <connections>
-                                        <action selector="onRedFilter:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0ST-wc-kdP"/>
-                                    </connections>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3OM-BX-YIl">
-                                    <rect key="frame" x="123" y="0.0" width="61" height="128"/>
-                                    <state key="normal" title="Blue" image="blueFilter"/>
-                                    <connections>
-                                        <action selector="onBlueFilter:" destination="BYZ-38-t0r" eventType="touchUpInside" id="F87-nJ-Kba"/>
-                                    </connections>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hjs-OE-0AZ">
-                                    <rect key="frame" x="184" y="0.0" width="61.5" height="128"/>
-                                    <state key="normal" title="Green" image="greenFilter"/>
-                                    <connections>
-                                        <action selector="onGreenFilter:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HPM-pR-dhm"/>
-                                    </connections>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="71X-c0-do5">
-                                    <rect key="frame" x="245.5" y="0.0" width="61.5" height="128"/>
-                                    <state key="normal" title="Alpha" image="alphaFilter"/>
-                                    <connections>
-                                        <action selector="onAlphaFilter:" destination="BYZ-38-t0r" eventType="touchUpInside" id="feG-aG-kEM"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                        </stackView>
-                    </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="trailing" secondItem="uVz-YS-v3x" secondAttribute="trailing" id="2A5-Lt-qFi"/>
-                        <constraint firstItem="uVz-YS-v3x" firstAttribute="top" secondItem="qsX-8E-MwU" secondAttribute="top" id="6vf-xf-fa3"/>
-                        <constraint firstAttribute="bottom" secondItem="uVz-YS-v3x" secondAttribute="bottom" id="BdU-TT-Z8f"/>
-                        <constraint firstItem="uVz-YS-v3x" firstAttribute="leading" secondItem="qsX-8E-MwU" secondAttribute="leading" id="uRE-aO-Gzf"/>
-                    </constraints>
-                </view>
                 <view contentMode="scaleToFill" id="uej-1R-FuC">
                     <rect key="frame" x="0.0" y="0.0" width="307" height="128"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -326,11 +272,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="alphaFilter" width="79" height="79"/>
-        <image name="blueFilter" width="79" height="77"/>
-        <image name="greenFilter" width="80" height="76"/>
-        <image name="negativeFilter" width="77" height="75"/>
-        <image name="redFilter" width="76" height="75"/>
         <image name="sample" width="75" height="75"/>
     </resources>
 </document>

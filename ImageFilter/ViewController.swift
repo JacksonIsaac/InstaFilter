@@ -28,7 +28,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet var filteredImageView: UIImageView!
     
     @IBOutlet var filterMenu: UIView!
-    @IBOutlet var secondaryMenu: UIView!
     @IBOutlet var bottomMenu: UIView!
     @IBOutlet var sliderView: UIView!
     
@@ -43,11 +42,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        secondaryMenu.backgroundColor = UIColor.white.withAlphaComponent(0.5)
-        
         // set AutoresizingIntoContraints false to comply with the constraints set
         // using code.
-        secondaryMenu.translatesAutoresizingMaskIntoConstraints = false
         filterMenu.translatesAutoresizingMaskIntoConstraints = false
         originalOverlay.translatesAutoresizingMaskIntoConstraints = false
         sliderView.translatesAutoresizingMaskIntoConstraints = false
@@ -74,6 +70,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     @IBAction func onNewPhoto(_ sender: Any) {
+        if self.sliderView.isDescendant(of: self.view) {
+            hideSlider()
+            editButton.isSelected = false
+        }
+        if self.filterMenu.isDescendant(of: self.view) {
+            hideFilterMenu()
+            filterButton.isSelected = false
+        }
         let actionSheet = UIAlertController(title: "New Photo", message: nil, preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { action in
             self.showCamera()
@@ -91,7 +95,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @IBAction func onFilter(_ sender: UIButton) {
         if(sender.isSelected) {
-//            hideSecondaryMenu()
             hideFilterMenu()
             sender.isSelected = false
         } else {
@@ -99,14 +102,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 hideSlider()
                 editButton.isSelected = false
             }
-//            showSecondaryMenu()
             showFilterMenu()
             sender.isSelected = true
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        print(indexPath.row)
         switch indexPath.row {
         case 0:
             filterName = "negative"
@@ -133,7 +134,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterIdentifier", for: indexPath) as! FilterPhotoCell
-//        cell.backgroundColor = UIColor.black
         cell.filterImage.image = filters[indexPath.row]
         return cell
     }
@@ -186,69 +186,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
     
-    
-//    // Functions handling different filters provided in the app.
-//    @IBAction func onNegativeFilter(_ sender: UIButton) {
-//        filterName = "negative"
-//        enableCompareButton()
-//        if(sender.isSelected) {
-//            imageView.image = image
-//            sender.isSelected = false
-//        } else {
-//            applyFilter(filterName: filterName!)
-//            sender.isSelected = true
-//        }
-//    }
-//    
-//    @IBAction func onRedFilter(_ sender: UIButton) {
-//        filterName = "redFilter"
-//        enableCompareButton()
-//        if(sender.isSelected) {
-//            imageView.image = image
-//            sender.isSelected = false
-//        } else {
-//            applyFilter(filterName: filterName!)
-//            sender.isSelected = true
-//        }
-//    }
-//    
-//    @IBAction func onBlueFilter(_ sender: UIButton) {
-//        filterName = "blueFilter"
-//        enableCompareButton()
-//        if(sender.isSelected) {
-//            imageView.image = image
-//            sender.isSelected = false
-//        } else {
-//            applyFilter(filterName: filterName!)
-//            sender.isSelected = true
-//        }
-//    }
-//    
-//    @IBAction func onGreenFilter(_ sender: UIButton) {
-//        filterName = "greenFilter"
-//        enableCompareButton()
-//        if(sender.isSelected) {
-//            imageView.image = image
-//            sender.isSelected = false
-//        } else {
-//            applyFilter(filterName: filterName!)
-//            sender.isSelected = true
-//        }
-//    }
-//
-//    @IBAction func onAlphaFilter(_ sender: UIButton) {
-//        filterName = "alphaFilter"
-//        enableCompareButton()
-//        if(sender.isSelected) {
-//            imageView.image = image
-//            sender.isSelected = false
-//        } else {
-//            applyFilter(filterName: filterName!)
-//            sender.isSelected = true
-//        }
-//    }
-    
-    
     // Functions handling image views and button actions.
     func showOriginalImage() {
         imageView.alpha = 0
@@ -292,8 +229,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         dismiss(animated: true, completion: nil)
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage{
-            imageView.image = image
-            self.image = image
+            // If image size is greater than 200*200 pixels then scale down the image for fast processing.
+            if image.size.height * image.size.width >= 40000 {
+                let scaledImage = image.resizeWith(percentage: 0.35)
+                imageView.image = scaledImage
+                self.image = scaledImage
+            } else {
+                imageView.image = image
+                self.image = image
+            }
         }
     }
     
@@ -337,37 +281,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             }
         })
     }
-    
-//    func showSecondaryMenu() {
-//        view.addSubview(secondaryMenu)
-//        
-//        let bottomConstraint = secondaryMenu.bottomAnchor.constraint(equalTo: bottomMenu.topAnchor)
-//        let leftConstraint = secondaryMenu.leftAnchor.constraint(equalTo: view.leftAnchor)
-//        let rightConstraint = secondaryMenu.rightAnchor.constraint(equalTo: view.rightAnchor)
-//        
-//        let heightConstraint = secondaryMenu.heightAnchor.constraint(equalToConstant: 75)
-//        
-//        NSLayoutConstraint.activate([bottomConstraint, leftConstraint, rightConstraint, heightConstraint])
-//        
-//        view.layoutIfNeeded()
-//        
-//        self.secondaryMenu.alpha = 0
-//
-//        UIView.animate(withDuration: 0.4) {
-//            self.secondaryMenu.alpha = 1.0
-//        }
-//        
-//    }
-//    
-//    func hideSecondaryMenu() {
-//        UIView.animate(withDuration: 0.4, animations: {
-//            self.secondaryMenu.alpha = 0
-//        }, completion: { completed in
-//            if completed == true {
-//                self.secondaryMenu.removeFromSuperview()
-//            }
-//        })
-//    }
     
     func showFilterMenu() {
         view.addSubview(filterMenu)
@@ -423,5 +336,31 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
 
+}
+
+// From StackOverflow: http://stackoverflow.com/a/29138120
+extension UIImage {
+    func resizeWith(percentage: CGFloat) -> UIImage? {
+        let imageView = UIImageView(frame: CGRect(origin: .zero, size: CGSize(width: size.width * percentage, height: size.height * percentage)))
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = self
+        UIGraphicsBeginImageContextWithOptions(imageView.bounds.size, false, scale)
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
+        imageView.layer.render(in: context)
+        guard let result = UIGraphicsGetImageFromCurrentImageContext() else { return nil }
+        UIGraphicsEndImageContext()
+        return result
+    }
+    func resizeWith(width: CGFloat) -> UIImage? {
+        let imageView = UIImageView(frame: CGRect(origin: .zero, size: CGSize(width: width, height: CGFloat(ceil(width/size.width * size.height)))))
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = self
+        UIGraphicsBeginImageContextWithOptions(imageView.bounds.size, false, scale)
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
+        imageView.layer.render(in: context)
+        guard let result = UIGraphicsGetImageFromCurrentImageContext() else { return nil }
+        UIGraphicsEndImageContext()
+        return result
+    }
 }
 
