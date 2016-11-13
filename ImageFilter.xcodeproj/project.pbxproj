@@ -15,6 +15,7 @@
 		2987A5591DCD1BAE001FDF06 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2987A5571DCD1BAE001FDF06 /* LaunchScreen.storyboard */; };
 		2987A5611DCDAF85001FDF06 /* RGBAImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2987A5601DCDAF85001FDF06 /* RGBAImage.swift */; };
 		2987A5631DCDE4C8001FDF06 /* ImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2987A5621DCDE4C8001FDF06 /* ImageProcessor.swift */; };
+		29B11A4B1DD84EA2005999A8 /* FilterPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B11A4A1DD84EA2005999A8 /* FilterPhotoCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		2987A55A1DCD1BAE001FDF06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2987A5601DCDAF85001FDF06 /* RGBAImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RGBAImage.swift; sourceTree = "<group>"; };
 		2987A5621DCDE4C8001FDF06 /* ImageProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageProcessor.swift; sourceTree = "<group>"; };
+		29B11A4A1DD84EA2005999A8 /* FilterPhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterPhotoCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				2987A55A1DCD1BAE001FDF06 /* Info.plist */,
 				2987A5621DCDE4C8001FDF06 /* ImageProcessor.swift */,
 				2987212D1DD1B8F600F378D7 /* TableViewController.swift */,
+				29B11A4A1DD84EA2005999A8 /* FilterPhotoCell.swift */,
 			);
 			path = ImageFilter;
 			sourceTree = "<group>";
@@ -148,6 +151,7 @@
 			files = (
 				2987A5511DCD1BAE001FDF06 /* ViewController.swift in Sources */,
 				2987A5611DCDAF85001FDF06 /* RGBAImage.swift in Sources */,
+				29B11A4B1DD84EA2005999A8 /* FilterPhotoCell.swift in Sources */,
 				2987A5631DCDE4C8001FDF06 /* ImageProcessor.swift in Sources */,
 				2987212E1DD1B8F600F378D7 /* TableViewController.swift in Sources */,
 				2987A54F1DCD1BAE001FDF06 /* AppDelegate.swift in Sources */,

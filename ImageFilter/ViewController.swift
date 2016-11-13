@@ -35,6 +35,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet var filterCollection: UICollectionView!
     
     @IBOutlet var filterButton: UIButton!
+    
+    var filters:[UIImage] = [#imageLiteral(resourceName: "negativeFilter"), #imageLiteral(resourceName: "redFilter"), #imageLiteral(resourceName: "blueFilter"),
+                             #imageLiteral(resourceName: "greenFilter"), #imageLiteral(resourceName: "alphaFilter")]
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +57,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         editButton.isEnabled = false
         
         filterCollection.dataSource = self
-//        filterCollection.delegate = self
+        filterCollection.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -103,12 +106,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return filters.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterIdentifier", for: indexPath)
-        cell.backgroundColor = UIColor.red
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterIdentifier", for: indexPath) as! FilterPhotoCell
+        cell.backgroundColor = UIColor.black
+        cell.filterImage.image = filters[indexPath.row]
         return cell
     }
     
