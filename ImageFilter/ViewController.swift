@@ -105,13 +105,35 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        print(indexPath.row)
+        switch indexPath.row {
+        case 0:
+            filterName = "negative"
+        case 1:
+            filterName = "redFilter"
+        case 2:
+            filterName = "blueFilter"
+        case 3:
+            filterName = "greenFilter"
+        case 4:
+            filterName = "alphaFilter"
+        default:
+            print("Nothing to Do!")
+        }
+        if filterName != nil {
+            applyFilter(filterName: filterName!)
+            enableCompareEditButton()
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return filters.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterIdentifier", for: indexPath) as! FilterPhotoCell
-        cell.backgroundColor = UIColor.black
+//        cell.backgroundColor = UIColor.black
         cell.filterImage.image = filters[indexPath.row]
         return cell
     }
@@ -121,9 +143,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             hideSlider()
             sender.isSelected = false
         } else {
-            if self.secondaryMenu.isDescendant(of: self.view) {
+            if self.filterMenu.isDescendant(of: self.view) {
                 filterButton.isSelected = false
-                hideSecondaryMenu()
+                hideFilterMenu()
             }
             showSlider()
             sender.isSelected = true
@@ -165,66 +187,66 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     
-    // Functions handling different filters provided in the app.
-    @IBAction func onNegativeFilter(_ sender: UIButton) {
-        filterName = "negative"
-        enableCompareButton()
-        if(sender.isSelected) {
-            imageView.image = image
-            sender.isSelected = false
-        } else {
-            applyFilter(filterName: filterName!)
-            sender.isSelected = true
-        }
-    }
-    
-    @IBAction func onRedFilter(_ sender: UIButton) {
-        filterName = "redFilter"
-        enableCompareButton()
-        if(sender.isSelected) {
-            imageView.image = image
-            sender.isSelected = false
-        } else {
-            applyFilter(filterName: filterName!)
-            sender.isSelected = true
-        }
-    }
-    
-    @IBAction func onBlueFilter(_ sender: UIButton) {
-        filterName = "blueFilter"
-        enableCompareButton()
-        if(sender.isSelected) {
-            imageView.image = image
-            sender.isSelected = false
-        } else {
-            applyFilter(filterName: filterName!)
-            sender.isSelected = true
-        }
-    }
-    
-    @IBAction func onGreenFilter(_ sender: UIButton) {
-        filterName = "greenFilter"
-        enableCompareButton()
-        if(sender.isSelected) {
-            imageView.image = image
-            sender.isSelected = false
-        } else {
-            applyFilter(filterName: filterName!)
-            sender.isSelected = true
-        }
-    }
-
-    @IBAction func onAlphaFilter(_ sender: UIButton) {
-        filterName = "alphaFilter"
-        enableCompareButton()
-        if(sender.isSelected) {
-            imageView.image = image
-            sender.isSelected = false
-        } else {
-            applyFilter(filterName: filterName!)
-            sender.isSelected = true
-        }
-    }
+//    // Functions handling different filters provided in the app.
+//    @IBAction func onNegativeFilter(_ sender: UIButton) {
+//        filterName = "negative"
+//        enableCompareButton()
+//        if(sender.isSelected) {
+//            imageView.image = image
+//            sender.isSelected = false
+//        } else {
+//            applyFilter(filterName: filterName!)
+//            sender.isSelected = true
+//        }
+//    }
+//    
+//    @IBAction func onRedFilter(_ sender: UIButton) {
+//        filterName = "redFilter"
+//        enableCompareButton()
+//        if(sender.isSelected) {
+//            imageView.image = image
+//            sender.isSelected = false
+//        } else {
+//            applyFilter(filterName: filterName!)
+//            sender.isSelected = true
+//        }
+//    }
+//    
+//    @IBAction func onBlueFilter(_ sender: UIButton) {
+//        filterName = "blueFilter"
+//        enableCompareButton()
+//        if(sender.isSelected) {
+//            imageView.image = image
+//            sender.isSelected = false
+//        } else {
+//            applyFilter(filterName: filterName!)
+//            sender.isSelected = true
+//        }
+//    }
+//    
+//    @IBAction func onGreenFilter(_ sender: UIButton) {
+//        filterName = "greenFilter"
+//        enableCompareButton()
+//        if(sender.isSelected) {
+//            imageView.image = image
+//            sender.isSelected = false
+//        } else {
+//            applyFilter(filterName: filterName!)
+//            sender.isSelected = true
+//        }
+//    }
+//
+//    @IBAction func onAlphaFilter(_ sender: UIButton) {
+//        filterName = "alphaFilter"
+//        enableCompareButton()
+//        if(sender.isSelected) {
+//            imageView.image = image
+//            sender.isSelected = false
+//        } else {
+//            applyFilter(filterName: filterName!)
+//            sender.isSelected = true
+//        }
+//    }
     
     
     // Functions handling image views and button actions.
@@ -240,7 +262,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
     
-    func enableCompareButton() {
+    func enableCompareEditButton() {
         if compareButton.isEnabled == false {
             compareButton.isEnabled = true
         }
@@ -316,36 +338,36 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         })
     }
     
-    func showSecondaryMenu() {
-        view.addSubview(secondaryMenu)
-        
-        let bottomConstraint = secondaryMenu.bottomAnchor.constraint(equalTo: bottomMenu.topAnchor)
-        let leftConstraint = secondaryMenu.leftAnchor.constraint(equalTo: view.leftAnchor)
-        let rightConstraint = secondaryMenu.rightAnchor.constraint(equalTo: view.rightAnchor)
-        
-        let heightConstraint = secondaryMenu.heightAnchor.constraint(equalToConstant: 75)
-        
-        NSLayoutConstraint.activate([bottomConstraint, leftConstraint, rightConstraint, heightConstraint])
-        
-        view.layoutIfNeeded()
-        
-        self.secondaryMenu.alpha = 0
-
-        UIView.animate(withDuration: 0.4) {
-            self.secondaryMenu.alpha = 1.0
-        }
-        
-    }
-    
-    func hideSecondaryMenu() {
-        UIView.animate(withDuration: 0.4, animations: {
-            self.secondaryMenu.alpha = 0
-        }, completion: { completed in
-            if completed == true {
-                self.secondaryMenu.removeFromSuperview()
-            }
-        })
-    }
+//    func showSecondaryMenu() {
+//        view.addSubview(secondaryMenu)
+//        
+//        let bottomConstraint = secondaryMenu.bottomAnchor.constraint(equalTo: bottomMenu.topAnchor)
+//        let leftConstraint = secondaryMenu.leftAnchor.constraint(equalTo: view.leftAnchor)
+//        let rightConstraint = secondaryMenu.rightAnchor.constraint(equalTo: view.rightAnchor)
+//        
+//        let heightConstraint = secondaryMenu.heightAnchor.constraint(equalToConstant: 75)
+//        
+//        NSLayoutConstraint.activate([bottomConstraint, leftConstraint, rightConstraint, heightConstraint])
+//        
+//        view.layoutIfNeeded()
+//        
+//        self.secondaryMenu.alpha = 0
+//
+//        UIView.animate(withDuration: 0.4) {
+//            self.secondaryMenu.alpha = 1.0
+//        }
+//        
+//    }
+//    
+//    func hideSecondaryMenu() {
+//        UIView.animate(withDuration: 0.4, animations: {
+//            self.secondaryMenu.alpha = 0
+//        }, completion: { completed in
+//            if completed == true {
+//                self.secondaryMenu.removeFromSuperview()
+//            }
+//        })
+//    }
     
     func showFilterMenu() {
         view.addSubview(filterMenu)
