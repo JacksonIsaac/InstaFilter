@@ -238,6 +238,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 imageView.image = image
                 self.image = image
             }
+            if filteredImageView.alpha == 1 {
+                showOriginalImage()
+                filteredImage = nil
+                filterName = nil
+                compareButton.isEnabled = false
+                editButton.isEnabled = false
+            }
         }
     }
     
