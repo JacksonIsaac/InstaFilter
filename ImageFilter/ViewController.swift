@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
     
     var image: UIImage?
     var filteredImage: UIImage?
@@ -27,9 +27,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet var filteredImageView: UIImageView!
     
+    @IBOutlet var filterMenu: UIView!
     @IBOutlet var secondaryMenu: UIView!
     @IBOutlet var bottomMenu: UIView!
     @IBOutlet var sliderView: UIView!
+    
+    @IBOutlet var filterCollection: UICollectionView!
     
     @IBOutlet var filterButton: UIButton!
         
@@ -38,13 +41,20 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // Do any additional setup after loading the view, typically from a nib.
         
         secondaryMenu.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        
+        // set AutoresizingIntoContraints false to comply with the constraints set
+        // using code.
         secondaryMenu.translatesAutoresizingMaskIntoConstraints = false
+        filterMenu.translatesAutoresizingMaskIntoConstraints = false
         originalOverlay.translatesAutoresizingMaskIntoConstraints = false
         sliderView.translatesAutoresizingMaskIntoConstraints = false
         
         image = imageView.image
         compareButton.isEnabled = false
         editButton.isEnabled = false
+        
+        filterCollection.dataSource = self
+//        filterCollection.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -78,16 +88,28 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @IBAction func onFilter(_ sender: UIButton) {
         if(sender.isSelected) {
-            hideSecondaryMenu()
+//            hideSecondaryMenu()
+            hideFilterMenu()
             sender.isSelected = false
         } else {
             if self.sliderView.isDescendant(of: self.view) {
                 hideSlider()
                 editButton.isSelected = false
             }
-            showSecondaryMenu()
+//            showSecondaryMenu()
+            showFilterMenu()
             sender.isSelected = true
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterIdentifier", for: indexPath)
+        cell.backgroundColor = UIColor.red
+        return cell
     }
     
     @IBAction func onEdit(_ sender: UIButton) {
@@ -119,6 +141,27 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         present(activityController, animated: true, completion: nil)
     }
     
+    // Begin defining user functions.
+    func applyFilter(filterName: String, val: Int = 255) {
+        imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.image!)!)
+        filteredImage = imageProcessor?.applyFilter(filterName, val: val).toUIImage()
+        showFilteredImage(filteredImage: filteredImage!)
+    }
+    
+    func showFilteredImage(filteredImage: UIImage) {
+        imageView.alpha = 1
+        filteredImageView.alpha = 0
+        
+        filteredImageView.image = filteredImage
+        
+        UIView.animate(withDuration: 0.4) {
+            self.filteredImageView.alpha = 1.0
+            self.imageView.alpha = 0
+        }
+    }
+    
+    
+    // Functions handling different filters provided in the app.
     @IBAction func onNegativeFilter(_ sender: UIButton) {
         filterName = "negative"
         enableCompareButton()
@@ -179,24 +222,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
     
-    func applyFilter(filterName: String, val: Int = 255) {
-        imageProcessor = ImageProcessor(imageRGBA: RGBAImage(image: self.image!)!)
-        filteredImage = imageProcessor?.applyFilter(filterName, val: val).toUIImage()
-        showFilteredImage(filteredImage: filteredImage!)
-    }
     
-    func showFilteredImage(filteredImage: UIImage) {
-        imageView.alpha = 1
-        filteredImageView.alpha = 0
-        
-        filteredImageView.image = filteredImage
-        
-        UIView.animate(withDuration: 0.4) {
-            self.filteredImageView.alpha = 1.0
-            self.imageView.alpha = 0
-        }
-    }
-    
+    // Functions handling image views and button actions.
     func showOriginalImage() {
         imageView.alpha = 0
         filteredImageView.alpha = 1
@@ -234,6 +261,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         present(cameraPicker, animated: true, completion: nil)
     }
 
+    
+    // Functions handling image picker using Camera or Photo Album.
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         dismiss(animated: true, completion: nil)
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage{
@@ -246,6 +275,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func filterIntensityChanged(_ sender: UISlider) {
+        applyFilter(filterName: filterName!, val: Int(filterSlider.value))
+    }
+    
+    
+    // Functions handling secondary UIViews.
     func showSlider() {
         
         view.addSubview(sliderView)
@@ -277,10 +312,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         })
     }
     
-    @IBAction func filterIntensityChanged(_ sender: UISlider) {
-        applyFilter(filterName: filterName!, val: Int(filterSlider.value))
-    }
-    
     func showSecondaryMenu() {
         view.addSubview(secondaryMenu)
         
@@ -308,6 +339,37 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }, completion: { completed in
             if completed == true {
                 self.secondaryMenu.removeFromSuperview()
+            }
+        })
+    }
+    
+    func showFilterMenu() {
+        view.addSubview(filterMenu)
+        
+        let bottomConstraint = filterMenu.bottomAnchor.constraint(equalTo: bottomMenu.topAnchor)
+        let leftConstraint = filterMenu.leftAnchor.constraint(equalTo: view.leftAnchor)
+        let rightConstraint = filterMenu.rightAnchor.constraint(equalTo: view.rightAnchor)
+        
+        let heightConstraint = filterMenu.heightAnchor.constraint(equalToConstant: 75)
+        
+        NSLayoutConstraint.activate([bottomConstraint, leftConstraint, rightConstraint, heightConstraint])
+        
+        view.layoutIfNeeded()
+        
+        self.filterMenu.alpha = 0
+        
+        UIView.animate(withDuration: 0.4) {
+            self.filterMenu.alpha = 1.0
+        }
+        
+    }
+    
+    func hideFilterMenu() {
+        UIView.animate(withDuration: 0.4, animations: {
+            self.filterMenu.alpha = 0
+        }, completion: { completed in
+            if completed == true {
+                self.filterMenu.removeFromSuperview()
             }
         })
     }

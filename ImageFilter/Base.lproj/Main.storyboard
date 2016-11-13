@@ -115,6 +115,8 @@
                         <outlet property="compareButton" destination="0m3-SR-OMo" id="GBo-d6-O5I"/>
                         <outlet property="editButton" destination="J31-ep-q2R" id="LDL-lP-cR2"/>
                         <outlet property="filterButton" destination="nja-km-Ll8" id="NTh-z9-BGC"/>
+                        <outlet property="filterCollection" destination="8JB-V7-Qhl" id="o7v-6Y-taL"/>
+                        <outlet property="filterMenu" destination="uej-1R-FuC" id="dIe-Ra-VQN"/>
                         <outlet property="filterSlider" destination="7f7-xO-HvO" id="v5f-9B-TH6"/>
                         <outlet property="filteredImageView" destination="fvR-d2-Fs6" id="O7s-79-bfN"/>
                         <outlet property="imageView" destination="jvM-47-h1h" id="kUf-7f-KsO"/>
@@ -175,6 +177,39 @@
                         <constraint firstItem="uVz-YS-v3x" firstAttribute="top" secondItem="qsX-8E-MwU" secondAttribute="top" id="6vf-xf-fa3"/>
                         <constraint firstAttribute="bottom" secondItem="uVz-YS-v3x" secondAttribute="bottom" id="BdU-TT-Z8f"/>
                         <constraint firstItem="uVz-YS-v3x" firstAttribute="leading" secondItem="qsX-8E-MwU" secondAttribute="leading" id="uRE-aO-Gzf"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" id="uej-1R-FuC">
+                    <rect key="frame" x="0.0" y="0.0" width="307" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8JB-V7-Qhl">
+                            <rect key="frame" x="0.0" y="0.0" width="307" height="128"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Wvx-Uj-jra">
+                                <size key="itemSize" width="50" height="50"/>
+                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </collectionViewFlowLayout>
+                            <cells>
+                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FilterIdentifier" id="q70-NQ-fQP">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                    </view>
+                                </collectionViewCell>
+                            </cells>
+                        </collectionView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="8JB-V7-Qhl" firstAttribute="leading" secondItem="uej-1R-FuC" secondAttribute="leading" id="MnO-ov-ANd"/>
+                        <constraint firstAttribute="trailing" secondItem="8JB-V7-Qhl" secondAttribute="trailing" id="ecA-WH-IP7"/>
+                        <constraint firstAttribute="bottom" secondItem="8JB-V7-Qhl" secondAttribute="bottom" id="fgz-Gu-Vxo"/>
+                        <constraint firstItem="8JB-V7-Qhl" firstAttribute="top" secondItem="uej-1R-FuC" secondAttribute="top" id="qRv-4Q-DCs"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" id="hum-em-5Zh" userLabel="Original Image overlay">
